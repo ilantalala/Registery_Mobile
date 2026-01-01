@@ -5,18 +5,24 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
-
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      {/* The screenOptions prop here applies to EVERY screen in your app.
+        Setting headerShown: false removes the 'index' text from the top.
+      */}
+      <Stack screenOptions={{ headerShown: false }}>
+        {/* Your main login screen */}
+        <Stack.Screen name="index" />
+        
+        {/* Your registration screen */}
+        <Stack.Screen name="register" />
+        
+        {/* Keeping your existing routes */}
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
